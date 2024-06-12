@@ -1,0 +1,23 @@
+package com.lec04.di;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+public class CtxCallTest {
+
+	public static void main(String[] args) {
+
+		String xmlFile = "C:\\KOSTA\\S3917_J11\\workspace_sts3\\spring3_prj\\src\\main\\webapp\\WEB-INF\\spring\\lec04-servlet-context.xml";
+        ApplicationContext ctx = new FileSystemXmlApplicationContext(xmlFile);
+    
+        InternalResourceViewResolver ds = (InternalResourceViewResolver)ctx.getBean("MY_IR_VIEW_RESOLVER_BEAN_NAME");
+	    if(ds != null) {
+	    	System.out.println("instance 생성" + ds);
+	    } else {
+	    	System.out.println("인스턴스 생성 실패");
+	    }
+	}
+
+}
