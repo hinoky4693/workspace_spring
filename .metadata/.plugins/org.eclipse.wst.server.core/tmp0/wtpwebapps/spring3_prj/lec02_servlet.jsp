@@ -11,6 +11,8 @@
 </head>
 <body>
 lec02_servlet.jsp<hr>
+
+${KEY_TESTSTR} <br>
 <c:forEach items="${KEY_EMPLIST}" var="evo">
 	${evo.empno} , ${evo.ename} <br> 
 </c:forEach>

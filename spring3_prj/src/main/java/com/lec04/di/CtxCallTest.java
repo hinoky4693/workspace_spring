@@ -13,11 +13,11 @@ import com.lec03.spring.EmpVO;
 public class CtxCallTest {
 	/**
 	   기능 : xml을 읽어 해당 설정에 있는 (클래스들의 인스턴스 초기화) == (new)
-	    <interface>				<class>
-	    BeanFactory    			XmlBeanFactory
-		ApplicationContext   	ClassPathXmlApplicationContext
-								FileSystemXmlApplicationContext
-		WebApplicationContext	XmlWebApplicationContext
+	    <interface>				<class>	
+	    BeanFactory    			XmlBeanFactory						path 경로
+		ApplicationContext   	ClassPathXmlApplicationContext	: src/main/resources
+								FileSystemXmlApplicationContext	: full path
+		WebApplicationContext	XmlWebApplicationContext		: session, request ... 꺼내볼 수 있음.
 	 */
 	public static void main(String[] args) {
 
@@ -40,12 +40,11 @@ public class CtxCallTest {
 	    	System.out.println("인스턴스 생성 실패");
 	    }
 	    
-	    //----  POJO(Plain Old Java Object)  ---------------------------------------------------------
+	    //----  POJO(Plain Old Java Object) : 결합도가 높아 비효율적 --------------------------------------
 	    EmpDAO dao = new EmpDAO();
 	    ArrayList<EmpVO> list = dao.empSelect();
 	    System.out.println(list.size() + "건 - new");
-	    //---- --------------------------------------------------------------------------------------
-	   
+	    //---- DI(Dependency Injection) : 결합도를 낮춰 상당히 효율적(재사용, 확장) --------------------------- 
 	    /**
          * <beans:bean name="MY_EMPDAO_BEAN_NAME" class="com.lec03.spring.EmpDAO"></beans:bean> 
          * == EmpDAO dao = new EmpDAO();
