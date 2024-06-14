@@ -9,9 +9,24 @@
 <title>Insert title here</title>
 </head>
 <body>
+<table border = 5 width=50% height=40%>
+	<tr>
+		<th scope="col">seq</th>
+		<th scope="col">title</th>
+		<th scope="col">contents</th>
+		<th scope="col">regid</th>
+		<th scope="col">regdate</th>
+	</tr>
 <c:forEach items="${KEY_BOARDLIST}" var="bvo">
-	${bvo.seq}, ${bvo.title}, ${bvo.contents}, ${bvo.regid}, ${bvo.regdate} <br> 
+	<tr>
+		<td><a href="${pageContext.request.contextPath}/board_detail?seq=${bvo.seq}">${bvo.seq}</a></td>
+		<td>${bvo.title}</td>
+		<td>${bvo.contents}</td>
+		<td>${bvo.regid}</td>
+		<td>${bvo.regdate}</td>
+	</tr> 
 </c:forEach>
+</table>
 
 </body>
 </html>
