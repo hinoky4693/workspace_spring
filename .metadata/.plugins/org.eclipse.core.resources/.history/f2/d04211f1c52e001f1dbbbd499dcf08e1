@@ -1,0 +1,16 @@
+package com.lec06.aop;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class AOPServiceImpl implements AOPService {
+
+private 
+	
+	@Override
+	public void svcDelete() {
+		System.out.println("2. AOPServiceImpl.svcDelete() 실행");
+		
+	}
+
+}

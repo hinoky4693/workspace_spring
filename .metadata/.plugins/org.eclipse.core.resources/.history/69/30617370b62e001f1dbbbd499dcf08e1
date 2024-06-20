@@ -1,0 +1,107 @@
+-----------------------------------------------------------------------------------
+ 스프링 AOP(Aspect Oriented Programming) : 관점 지향 프로그래밍
+	- 공통은 Spring Container에게 맡기고 개발자는 핵심 logic만 신경쓰자!
+	- 공통의 관심사항을 적용해서 발생하는 의존관계의 복잡성과 코드 중복을 해소해 주는 프로그래밍 기법
+-----------------------------------------------------------------------------------
+- Advice 	: what (공통 기능)
+- Target	: Advice가 적용될 객체(핵심 기능)
+	- JoinPoint	: 5개 (like method)
+- Proxy		: Advice를 target객체에 적용 하면 (생성되는 객체 = 중계자). 
+- PointCut 	: where (5개 중에 4개만? 범위설정)
+
+- Aspect	: Advice(what) + PointCut(where) + when
+	- when[5] 	- 앞   	before
+				- 뒤   	after(finally)/after-throwing(exception 발생했을때만)/after-returning(try)
+				- 앞뒤	around
+- Weaving	: 공통을 핵심에 적용하는 절차
+			: Target에 Aspect를 적용해서 Proxy 객체를 생성하는 절차.
+			
+-----------------------------------------------------------------------------------	
+Aspect 표기
+-----------------------------------------------------------------------------------
+expression="execution(____________________________)";
+
+ 접근자 리턴타입     		 패키지    .클래스    .메소드명     (매개변수타입)					
+public int   		com.lec06.aop.boardDAO.boardInsert(BoardVO)
+public int   		com.lec06.aop.boardDAO.replyInsert(ReplyVO)
+-----------------------------------------------------------------------------------
+public int   		com.lec06.aop.boardDAO.*Insert(*VO)
+-----------------------------------------------------------------------------------
+
+
+public int   		com.lec06.aop.boardDAO.boardInsert(BoardVO)
+public int   		com.lec06.aop.boardDAO.replyInsert(ReplyVO)
+public BoardVO  	com.lec06.aop.boardDAO.selectOne(int, int)
+-----------------------------------------------------------------------------------
+public *			com.lec06.aop.BoardDAO.*(*,..)
+-----------------------------------------------------------------------------------
+
+
+public int   		com.lec06.aop.boardDAO.boardInsert(BoardVO)
+public int   		com.lec06.aop.boardDAO.replyInsert(ReplyVO)
+public BoardVO  	com.lec06.aop.boardDAO.selectOne(int)
+public List	  	com.lec06.aop.boardDAO.select()
+-----------------------------------------------------------------------------------
+public *			com.lec06.aop.BoardDAO.*(..)
+-----------------------------------------------------------------------------------
+
+
+public int   		com.lec06.aop.boardDAO.boardInsert(BoardVO)
+public int   		com.lec06.aop.boardDAO.replyInsert(ReplyVO)
+public BoardVO  	com.lec06.aop.boardDAO.selectOne(int)
+public List 	  	com.lec06.aop.boardDAO.select()
+public void			com.lec01.sample.DAOCallTest.myprint()
+-----------------------------------------------------------------------------------
+public *			com.*.*.*DAO*.*(..)
+-----------------------------------------------------------------------------------
+
+
+public int   		com.lec06.aop.boardDAO.boardInsert(BoardVO)
+public int   		com.lec06.aop.boardDAO.replyInsert(ReplyVO)
+public BoardVO  	com.lec06.aop.boardDAO.selectOne(int)
+public List 	  	com.lec06.aop.boardDAO.select()
+public void			com.lec01.sample.DAOCallTest.myprint()
+public void			com.kosta.CallTest.myprint();
+-----------------------------------------------------------------------------------
+public *			com..*.*(..)
+-----------------------------------------------------------------------------------
+
+ex) execution(public Integer com.edu.aop.*.*(*))
+접근제어자	: public
+리턴타입	: Integer
+패키지 	: com.edu.aop
+클래스 	: 모든 클래스(*)
+메서드 	: 모든 메서드(*)
+파라미터	: 1개
+
+ex) execution(* com.edu..*.get*(..))
+접근제어자	: public(안쓰면 기본 public)
+리턴타입	: 모든 타입(*)
+패키지	: com.edu 이하 depth무관 전체(com.edu..)
+클래스 	: 모든 클래스(*)
+메서드	: get___()모양의 메서드(get*)
+파라미터	: 0~N개
+
+ex) execution(		* com.edu.aop..*Service.*(..))
+  	접근제어자 : public
+ 	메서드리턴타입 : 모든타입
+ 	패키지: com.edu.aop. 뎁스무관 
+ 	클래스: ___Service
+ 	메서드 : 모든메서드
+ 	파라미터 : 0개~N개
+ 	
+ex) execution(    * com.edu.aop.BoardService.*(..))
+ 	접근제어자 : public
+ 	메서드리턴타입 : 모든타입
+ 	패키지: com.edu.aop만 
+ 	클래스: BoardService만
+ 	메서드 : 모든메서드
+ 	파라미터 : 0개~N개
+ 	
+ex) execution(    * some*(*, *))
+ 	접근제어자 : public
+ 	메서드리턴타입 : 모든타입
+ 	패키지: 없음 
+ 	클래스: 없음
+ 	메서드 : some_____()
+ 	파라미터 : 2개

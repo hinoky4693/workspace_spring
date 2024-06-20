@@ -363,6 +363,7 @@ public class BoardDAO {
 				rvo.setReply(rs.getString("reply"));
 				rvo.setRegid(rs.getString("regid"));
 				rvo.setRegdate(rs.getString("regdate"));
+				rvo.setRseq(rs.getInt("rseq"));
 				list.add(rvo);
 			}
 		} catch (SQLException e) {

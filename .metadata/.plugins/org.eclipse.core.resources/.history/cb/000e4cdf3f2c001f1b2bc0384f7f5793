@@ -1,0 +1,5 @@
+package com.lec05.rest;
+
+public class BoardRestController {
+
+}

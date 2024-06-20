@@ -1,0 +1,10 @@
+package com.lec06.aop;
+
+import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+
+public class AOPController extends MultiActionController {
+	
+	public void ctlDelete() {
+		System.out.println("1. AOPController.ctlDelete() 실행");
+	}
+}

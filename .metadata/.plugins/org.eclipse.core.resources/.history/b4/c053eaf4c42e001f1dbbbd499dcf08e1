@@ -1,0 +1,5 @@
+package com.lec06.aop;
+
+public class AOPServiceImpl {
+
+}

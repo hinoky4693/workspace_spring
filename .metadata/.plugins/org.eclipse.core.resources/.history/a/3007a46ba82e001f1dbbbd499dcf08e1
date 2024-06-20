@@ -1,0 +1,15 @@
+----------------------------------------------
+ 스프링 AOP
+----------------------------------------------
+- Advice 	: what (공통 기능)
+- Target	: Advice가 적용될 객체(핵심 기능)
+	- JoinPoint	: 5개 (like method)
+- Proxy		: Advice를 target객체에 적용 하면 (생성되는 객체 = 중계자). 
+- PointCut 	: where (5개 중에 4개만? 범위설정)
+
+- Aspect	: Advice(what) + PointCut(where) + when
+	- when[5] 	- 앞   	before
+				- 뒤   	after(finally)/after-throwing(exception 발생했을때만)/after-returning(try)
+				- 앞뒤	around
+- Weaving	: 공통을 핵심에 적용하는 절차
+			: Target에 Aspect를 적용해서 Proxy 객체를 생성하는 절차.

@@ -1,0 +1,11 @@
+package com.lec06.aop;
+
+public class AOPServiceImpl implements AOPService {
+
+	@Override
+	public void svcDelete() {
+		System.out.println("2. AOPServiceImpl.svcDelete() 실행");
+		
+	}
+
+}

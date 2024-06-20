@@ -1,0 +1,77 @@
+package com.lec04.di.board;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Service
+public class BoardServiceImpl implements BoardService {
+	@Autowired
+	private BoardDAO boardDAO;
+	
+    public int svcBoardInsert(@ModelAttribute BoardVO bvo){
+		int insertRows = boardDAO.boardInsert(bvo);
+		
+		return insertRows;
+	}
+	
+    public ArrayList<BoardVO> svcBoardList(Model model){
+		boardDAO.boardSelect();
+		ArrayList<BoardVO> list = boardDAO.boardSelect();
+		model.addAttribute("KEY_BOARDLIST", list);
+		
+		
+		return list;
+	}
+	
+	public Map ctlBoardDetail(@RequestParam("seq") int seq, Model model) {
+
+		BoardVO bvo = boardDAO.boardReplySelect(seq);	
+		
+		
+		Map<String, Object> map = new HashMap();
+		map.put("bvo", bvo);
+//		map.put(rlist, map)
+		return map;
+	}
+	
+	public String ctlBoardUpdate(@ModelAttribute BoardVO bvo) {
+		boardDAO.boardUpdate(bvo);
+		
+		return "redirect:/board_list";
+	}
+	
+	public String ctlBoardDelete(@RequestParam("seq") int seq) {
+		boardDAO.boardDelete(seq);
+		
+		return "redirect:/board_list";
+	}
+	
+	public int svcReplyDelete(@ModelAttribute ReplyVO rvo, Model model) {
+		int DeleteRows = boardDAO.replyDelete(rvo.getRseq());
+		
+		return DeleteRows;
+	}
+	
+	public int svcReplyInsert(@ModelAttribute ReplyVO rvo) {
+		int insertRows = boardDAO.replyInsert(rvo);
+		
+		
+		return insertRows;
+	}
+
+	public int svcReplyUpdate(@ModelAttribute ReplyVO rvo) {
+		int updateRows = boardDAO.replyUpdate(rvo);
+		
+		
+		return updateRows;
+	}
+	
+}

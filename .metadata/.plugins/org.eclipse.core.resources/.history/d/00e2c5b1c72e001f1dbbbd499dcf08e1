@@ -1,0 +1,17 @@
+package com.lec06.aop;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+
+@Controller
+public class AOPController extends MultiActionController {
+	@Autowired
+	private AOPService aopService;
+	
+	public void ctlDelete() {
+		System.out.println("1. AOPController.ctlDelete() 실행");
+		aopService.svcDelete();
+	}
+	
+}
