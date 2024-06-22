@@ -49,7 +49,6 @@
 </table>
 </form>
 <!-- --------------------------------------- 댓글목록 ------------------------------- -->
-<br>
 
 <table width=100% border=1>
 <c:forEach items="${KEY_REPLYLIST}" var="rvo">
