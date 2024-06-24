@@ -28,6 +28,14 @@
 
 	<dependencies>
 
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.30</version>
+		    <scope>provided</scope>
+		</dependency>
+
 
 		<!-- ojdbc6.jar -->
 		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc6 -->

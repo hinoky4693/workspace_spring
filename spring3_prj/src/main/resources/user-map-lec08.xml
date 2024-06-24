@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="userNameSpace">
+
+	<resultMap id="userResultMap" type="com.lec08.dao.UserVO">
+	    <id property="userSeq" column="user_seq" />
+	    <result property="userId" column="user_id" />
+	    <result property="userPw" column="user_pw" />    
+	    <result property="userName" column="user_name" />
+	    <result property="regdate" column="regdate" />
+	</resultMap>
+
+
+	<insert id="userInsert" parameterType="com.lec08.dao.UserVO">
+		insert into Users3
+		(user_seq, user_id, user_pw)
+		values
+		(users3_seq.nextval, #{userId}, #{userPw})
+	</insert>
+	
+	<select id="allUser" resultMap="userResultMap">
+		select *
+		from users3
+	</select>
+	
+	<select id="login" parameterType="com.lec08.dao.UserVO" resultMap="userResultMap">
+		select *
+		from users3
+		where user_id = #{userId}
+	</select>
+	
+	<update id="userUpdate" parameterType="com.lec08.dao.UserVO">
+		update users3 set
+		user_pw = #{userPw}
+		where user_id = #{userId}
+	</update>
+	<delete id="userDelete" parameterType="com.lec08.dao.UserVO">
+		delete users3
+		where user_id = #{userId}
+	</delete>
+	
+	
+</mapper>
+
+
+  
