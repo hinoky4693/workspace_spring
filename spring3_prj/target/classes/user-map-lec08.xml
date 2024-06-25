@@ -28,7 +28,7 @@
 	<select id="login" parameterType="com.lec08.dao.UserVO" resultMap="userResultMap">
 		select *
 		from users3
-		where user_id = #{userId}
+		where user_id = #{userId} and user_pw = #{userPw}
 	</select>
 	
 	<update id="userUpdate" parameterType="com.lec08.dao.UserVO">
@@ -37,7 +37,7 @@
 		where user_id = #{userId}
 	</update>
 	<delete id="userDelete" parameterType="com.lec08.dao.UserVO">
-		delete users3
+		delete from users3
 		where user_id = #{userId}
 	</delete>
 	

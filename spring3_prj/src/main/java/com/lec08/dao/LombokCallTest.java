@@ -1,5 +1,7 @@
 package com.lec08.dao;
 
+import com.lec09.orm.mybatis.UserVO;
+
 public class LombokCallTest {
 
 	public static void main(String[] args) {

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -30,32 +29,26 @@ public class CtxCallTest {
 		WebApplicationContext	XmlWebApplicationContext        : + session request..
 	 */
 	
-
 	
 	public static void main(String[] args) {
 		
-		
         String xmlFile08 = "C:\\KOSTA\\S3917_J11\\workspace_sts3\\spring3_prj\\src\\main\\webapp\\WEB-INF\\spring\\lec08-servlet-context.xml";
         ApplicationContext ctx = new FileSystemXmlApplicationContext(xmlFile08);
-        
-        BoardDAO boardDAO = new BoardDAO();
-        
+
         try {
         	DataSource ds = (DataSource)ctx.getBean("MY_tomcat_ds");
 			Connection conn = ds.getConnection(); 
 			//TODO
-			
-			System.out.println();	
 			if(conn != null) {
 				System.out.println("conn ok");
-			}else {
+			} else {
 				System.out.println("faild");
 			}
 			
 			conn.close(); 
 		}
 		catch (Exception e) {
-			e.printStackTrace();  
+			e.printStackTrace(); 
 		}
        
         

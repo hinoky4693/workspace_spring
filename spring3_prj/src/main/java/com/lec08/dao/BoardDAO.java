@@ -5,20 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
 public class BoardDAO {
-	
 	@Autowired
-	private DataSource ds;
+	DataSource ds;
+	//프로토타입 개발
+	
 
 	
 	/** 
@@ -31,17 +31,13 @@ public class BoardDAO {
 		PreparedStatement pstmt  = null;
 		ResultSet rs = null;
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
-		
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
 		try {
 			//---------------DBCP를 사용한 DB 연결 -----------------------
 			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection();  
-
-			conn = ds.getConnection();
-			
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
 			String sql = "select * from board order by seq desc";
 			pstmt = conn.prepareStatement(sql);
 			rs =  pstmt.executeQuery();
@@ -60,6 +56,8 @@ public class BoardDAO {
 		return list;
 	}
 	
+	
+
 	/** 
 	 * ----------------------------------------------------------------
 	 *  board 입력
@@ -72,26 +70,24 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt  = null;
 		int insertRows = 0;
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
 		
 		try {
 			//---------------DBCP를 사용한 DB 연결 -----------------------
 			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection();  
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
 
-			conn = ds.getConnection();
-			
-			String sql = "insert into board values(board_seq.nextval,?,?,'홍길동',sysdate)";
+			//String sql = "insert into board(seq,title,contens,regid) values(board_seq.nextval,?,?,?)";
+			String sql = "insert into board values(board_seq.nextval,?,?,'pyo',sysdate)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bvo.getTitle());
 			pstmt.setString(2, bvo.getContents());   	
 			insertRows =  pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-		
+		}
 		return insertRows;
 	}
 	
@@ -101,22 +97,19 @@ public class BoardDAO {
 	 *    - x번 게시물 : board 상세보기 + reply 목록 
 	 * ----------------------------------------------------------------- 
 	 */
-	
 	public BoardVO boardReplySelect(int seq) {
 		Connection conn = null;
 		PreparedStatement pstmt  = null;
 		ResultSet rs = null;
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
 		
 		BoardVO bvo = null;
 		try {
 			//---------------DBCP를 사용한 DB 연결 -----------------------
 			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection();  
-			
-			conn = ds.getConnection();
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
 			
 			String sql = "select b.seq, b.title, b.contents, b.regid, b.regdate, "
 					+ "r.rseq , r.reply, r.regid as rregid, r.regdate as rregdate "
@@ -127,7 +120,7 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
 			rs =  pstmt.executeQuery();
-			ArrayList<ReplyVO> replyList = new ArrayList<ReplyVO>();
+			List<ReplyVO> replyList = new ArrayList<ReplyVO>();
 			while(rs.next()) { 
 				if (bvo == null) {
 					bvo = new BoardVO();
@@ -150,44 +143,9 @@ public class BoardDAO {
 			bvo.setReplies(replyList);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-
+		}
 		return bvo;
 	}
-	/** 
-	 * ----------------------------------------------------------------
-	 *  reply 입력
-	 * ----------------------------------------------------------------- 
-	 */
-	public int replyInsert(ReplyVO rvo) {
-		//RSEQ      *REPLY      REGID             REGDATE    *SEQ
-		//nextval               session,cookies   sysdate  
-		Connection conn = null;
-		PreparedStatement pstmt  = null;
-		int insertRows = 0;
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
-		
-		try {
-			//---------------DBCP를 사용한 DB 연결 -----------------------
-			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection();  
-			
-			conn = ds.getConnection();
-			
-			String sql = "insert into reply values(reply_seq.nextval,?,'testid',sysdate,?)";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, rvo.getReply());   	
-			pstmt.setInt(2, rvo.getSeq());
-			insertRows =  pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} 
-
-		return insertRows;
-	}
-	
 	
 	/** 
 	 * ----------------------------------------------------------------
@@ -199,16 +157,15 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt  = null;
 		int updateRows = 0;
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
 		
 		try {
 			//---------------DBCP를 사용한 DB 연결 -----------------------
 			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection();  
-			conn = ds.getConnection();
-			
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
+
 			String sql = "update board set title=?, contents=? where seq=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bvo.getTitle());
@@ -217,11 +174,11 @@ public class BoardDAO {
 			updateRows =  pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-
+		}
 		return updateRows;
 	}
 
+	
 	/** 
 	 * ----------------------------------------------------------------
 	 *  board 삭제
@@ -231,28 +188,57 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt  = null;
 		int delRows = 0;
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
 		
 		try {
 			//---------------DBCP를 사용한 DB 연결 -----------------------
 			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection();  
-			
-			conn = ds.getConnection();
-			
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
+
 			String sql = "delete from board where seq=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);   							
 			delRows =  pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-
+		}
 		return delRows;
 	}
+	
+	/** 
+	 * ----------------------------------------------------------------
+	 *  reply 입력
+	 * ----------------------------------------------------------------- 
+	 */
+	public int replyInsert(ReplyVO rvo) {
+		//RSEQ      *REPLY      REGID             REGDATE    *SEQ
+		//nextval               session,cookies   sysdate  
+		Connection conn = null;
+		PreparedStatement pstmt  = null;
+		int insertRows = 0;
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
+		
+		try {
+			//---------------DBCP를 사용한 DB 연결 -----------------------
+			//conn = moc.oracleConn();
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
 
+			String sql = "insert into reply values(reply_seq.nextval,?,'testid',sysdate,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rvo.getReply());   	
+			pstmt.setInt(2, rvo.getSeq());
+			insertRows =  pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			oracleClose(conn, pstmt);
+		}
+		return insertRows;
+	}
 	
 	/** 
 	 * ----------------------------------------------------------------
@@ -263,56 +249,53 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt  = null;
 		int delRows = 0;
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
 		
 		try {
 			//---------------DBCP를 사용한 DB 연결 -----------------------
 			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection(); 
-			
-			conn = ds.getConnection();
-			
-			
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
+
 			String sql = "delete from reply where rseq=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rseq);   							
 			delRows =  pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-
+		}
 		return delRows;
 	}
 	
-	public int replyUpdate(ReplyVO rvo) {
+	/** 
+	 * ----------------------------------------------------------------
+	 *  댓글 수정
+	 * ----------------------------------------------------------------- 
+	 */
+	//public int boardUpdate(String title, String contetns, String regdate ) {
+	public int replyUpdate(ReplyVO rvo ) {
 		Connection conn = null;
 		PreparedStatement pstmt  = null;
 		int updateRows = 0;
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
 		
 		try {
 			//---------------DBCP를 사용한 DB 연결 -----------------------
 			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection();  
-			
-			conn = ds.getConnection();
-			
-			String sql = "update reply set reply = ? where rseq = ?";
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
+			String sql = "update reply set reply_seq.nextval,?,'testid',sysdate,?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, rvo.getReply());   	
-			pstmt.setInt(2, rvo.getRseq());
+			pstmt.setInt(2, rvo.getSeq());  	
 			updateRows =  pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-
+		}
 		return updateRows;
 	}
-	
 	/** 
 	 * ----------------------------------------------------------------
 	 *  x번 게시물의 board 상세보기 
@@ -324,17 +307,14 @@ public class BoardDAO {
 		PreparedStatement pstmt  = null;
 		ResultSet rs = null;
 		BoardVO bvo = new BoardVO();		
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();
 		
 		try {
 			//---------------DBCP를 사용한 DB 연결 -----------------------
 			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection();  
-			
-			conn = ds.getConnection(); 
-			
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
 			String sql = "select * from board where seq=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
@@ -347,12 +327,10 @@ public class BoardDAO {
 			bvo.setRegdate(rs.getString("regdate"));
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-
+		}
 		return bvo;
 				
 	}
-	
 	
 	/** 
 	 * ----------------------------------------------------------------
@@ -364,16 +342,13 @@ public class BoardDAO {
 		PreparedStatement pstmt  = null;
 		ResultSet rs = null;
 		ArrayList<ReplyVO> list = new ArrayList<ReplyVO>();
-//		DataSource ds = null;
-//		MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
+		//DataSource ds = null;
+		////MyOracleConnection moc = new MyOracleConnection();  //클래스 분리시켜놓아서 인스턴스 생성해서 사용
 		try {
 			//---------------DBCP를 사용한 DB 연결 -----------------------
 			//conn = moc.oracleConn();
-//			ds = moc.myOracleDataSource();
-//			conn = ds.getConnection();
-			
-			conn = ds.getConnection();
-			
+			//ds = moc.myOracleDataSource();
+			conn = ds.getConnection();  
 			String sql = "select * from reply where seq=? order by rseq desc";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
@@ -384,15 +359,29 @@ public class BoardDAO {
 				rvo.setReply(rs.getString("reply"));
 				rvo.setRegid(rs.getString("regid"));
 				rvo.setRegdate(rs.getString("regdate"));
-				rvo.setRseq(rs.getInt("rseq"));
 				list.add(rvo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-
 		return list;
 	}
-
-	
+	//---------close 공통----------------
+	public void oracleClose(Connection conn, PreparedStatement pstmt, ResultSet rs) {
+		try {
+			if (rs!=null) rs.close();
+			if (pstmt!=null) pstmt.close();
+			if (conn!=null) conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void oracleClose(Connection conn, PreparedStatement pstmt) {
+		try {
+			if (pstmt!=null) pstmt.close();
+			if (conn!=null) conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

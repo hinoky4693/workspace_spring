@@ -12,5 +12,8 @@
 ${myval}
 
 hello  한글테스트
+
+${KEY_USERVO.userId}
+
 </body>
 </html>

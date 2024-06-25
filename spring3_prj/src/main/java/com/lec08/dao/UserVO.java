@@ -9,20 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-//@Getter
-//@Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@ToString
-
-@Component		// Spring <bean>   JPA :: @Entity
-@Data			// lombok
-//@ToString
-//@Getter
-//@Setter
-//@RequiredArgsConstructor
-//@EqualsAndHashCode
-
+@Component
+@Data
 public class UserVO {
 	private int userSeq;
 	private String userId;
