@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kosta.semi.mappers.BoardMapper">
+	<resultMap id="boardRelyResultMap" type="com.kosta.semi.vo.BoardVO">
+		<id property="seq" column="seq"/>
+		<result property="title" column="title"/>
+		<result property="contents" column="contents"/>
+		<result property="regid" column="regid"/>
+		<result property="regdate" column="regdate"/>
+		<!-- <collection property="replies" ofType="com.kosta.semi.vo.ReplyVO" select="com.kosta.semi.mapper.ReplyMapper" column="seq" /> -->
+																				<!--  -->
+		<!-- <collection property="replies" ofType="com.lec08.dao.ReplyVO" select="getReplyBySeq" column="seq" /> -->
+																		<!-- 이 sql문에 맞는 결과를 vo에 담아라. seq를 들고. -->
+		<collection property="replies" ofType="com.kosta.semi.vo.ReplyVO">
+			<id property="rseq" column="rseq"/>
+			<result property="reply" column="reply"/>
+			<result property="regid" column="regid"/>
+			<result property="regdate" column="regdate"/>
+			<result property="seq" column="seq"/>
+		</collection>
+	</resultMap>
+
+	<resultMap id="boardMap_id" type="com.kosta.semi.vo.BoardVO">
+		<id property="seq" column="seq"/>
+		<result property="title" column="title"/>
+		<result property="contents" column="contents"/>
+		<result property="regid" column="regid"/>
+		<result property="regdate" column="regdate"/>
+	</resultMap>
+	
+	<resultMap id="replyMap_id" type="com.kosta.semi.vo.ReplyVO">
+		<id property="rseq" column="rseq"/>
+		<result property="reply" column="reply"/>
+		<result property="regid" column="regid"/>
+		<result property="regdate" column="regdate"/>
+		<result property="seq" column="seq"/>
+	</resultMap>
+
+
+
+
+	
+	
+	<select id="boardSelectList" resultMap="boardMap_id">
+		select *
+		from board
+	</select>
+	
+	<insert id="boardInsert" parameterType="com.kosta.semi.vo.BoardVO">
+		insert into board (seq, title, contents, regid, regdate)
+		values (board_seq.nextval, #{title}, #{contents}, '홍길동', sysdate)
+	</insert>
+	
+	<insert id="replyInsert" parameterType="com.kosta.semi.vo.ReplyVO">
+		insert into reply
+		(rseq, reply, regid, regdate, seq) values (reply_seq.nextval, #{reply}, '미정', sysdate, #{seq})
+	</insert>
+	
+	<update id="boardUpdate" parameterType="com.kosta.semi.vo.BoardVO">
+		update board
+		set title=#{title}, contents=#{contents}
+		where seq=#{seq}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		delete from board
+		where seq=#{seq}
+	</delete>
+	
+	<delete id="replyDelete" parameterType="int">
+		delete from reply
+		where rseq=#{rseq}
+	</delete>
+	
+	<update id="replyUpdate" parameterType="com.kosta.semi.vo.ReplyVO">
+		update reply set
+		reply = #{reply}
+		where rseq =#{rseq}
+	</update>
+	
+	<select id="boardSelectOne" parameterType="int" resultMap="boardMap_id">
+		select *
+		from board 
+		where seq=#{seq}
+	</select>
+	
+	<select id="replySelect" parameterType="int" resultMap="replyMap_id">
+		select *
+		from reply
+		where seq=#{seq}
+		order by rseq desc
+	</select>
+	
+
+	<select id="searchForRest" parameterType="String" resultMap="boardMap_id">
+		select *
+		from board
+		where title like #{searchStr} order by seq desc
+	</select>
+</mapper>

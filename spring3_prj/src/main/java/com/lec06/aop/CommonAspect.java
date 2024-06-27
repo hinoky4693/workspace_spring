@@ -21,7 +21,7 @@ public class CommonAspect {
 			System.out.println("\t  :: " + jp.getSignature());
 			jp.proceed();    // aOPService.svcDelete();
 			System.out.println("\t 뒤::CommonAspect.aroundAdvice()");
-		}catch (Throwable e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}

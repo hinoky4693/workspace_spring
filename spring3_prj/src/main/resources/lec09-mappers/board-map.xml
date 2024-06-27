@@ -38,6 +38,24 @@
 	resultType
 	resultMap
 	 -->
+<!-- 
+	<resultMap id="boardReplyResultMap"
+		type="com.lec08.dao.BoardVO">
+		<id property="seq" column="b_seq" />
+		<result property="title" column="b_title" />
+	<association property="author" column="blog_author_id" javaType="FileVO">
+	<collection property="replies" ofType="com.lec08.dao.ReplyVO" resultMap="replyResultMap"/>
+		<collection property="replies"
+			ofType="com.lec08.dao.ReplyVO">
+			<id property="rseq" column="rseq" />
+			<result property="reply" column="reply" />
+		</collection>
+	</resultMap>
+-->
+	 
+	 
+	 
+	 
 	 
 	 <!-- Board 리스트  -->
     <select id="getBoardBySeq" resultMap="boardResultMap">
