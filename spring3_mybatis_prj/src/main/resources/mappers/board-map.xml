@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kosta.semi.mappers.BoardMapper">
+<!-- 여기 이름 무조건 mapper랑 맞춰줘야됨. 이거 경로임. -->
 	<resultMap id="boardRelyResultMap" type="com.kosta.semi.vo.BoardVO">
 		<id property="seq" column="seq"/>
 		<result property="title" column="title"/>
@@ -9,7 +10,7 @@
 		<result property="regid" column="regid"/>
 		<result property="regdate" column="regdate"/>
 		<!-- <collection property="replies" ofType="com.kosta.semi.vo.ReplyVO" select="com.kosta.semi.mapper.ReplyMapper" column="seq" /> -->
-																				<!--  -->
+																				<!-- 이 주소에 있는 Mapper 가져와라. -->
 		<!-- <collection property="replies" ofType="com.lec08.dao.ReplyVO" select="getReplyBySeq" column="seq" /> -->
 																		<!-- 이 sql문에 맞는 결과를 vo에 담아라. seq를 들고. -->
 		<collection property="replies" ofType="com.kosta.semi.vo.ReplyVO">
@@ -37,11 +38,6 @@
 		<result property="seq" column="seq"/>
 	</resultMap>
 
-
-
-
-	
-	
 	<select id="boardSelectList" resultMap="boardMap_id">
 		select *
 		from board

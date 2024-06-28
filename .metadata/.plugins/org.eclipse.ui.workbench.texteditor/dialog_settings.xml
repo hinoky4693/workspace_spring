@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="insert"/>
+		<item key="selection" value="list"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="list"/>
+			<item value="List"/>
 			<item value="insert"/>
 			<item value="search"/>
 			<item value="gson"/>
@@ -21,8 +23,6 @@
 			<item value="mybatis.spring"/>
 			<item value="oracle"/>
 			<item value="롤백"/>
-			<item value="jstl"/>
-			<item value="aspectj"/>
 		</list>
 		<list key="replacehistory">
 		</list>
