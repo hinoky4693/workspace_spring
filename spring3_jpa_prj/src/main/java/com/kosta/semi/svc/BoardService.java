@@ -10,7 +10,7 @@ import com.kosta.semi.entity.ReplyEntity;
 
 
 public interface BoardService {
-	public List<BoardEntity> svcBoardSelectList();
+	public ArrayList<BoardEntity> svcBoardSelectList();
 	public void svcBoardInsert(BoardEntity bvo);
 	public void svcReplyInsert(ReplyEntity rvo);
 	public void svcBoardUpdate(BoardEntity bvo);

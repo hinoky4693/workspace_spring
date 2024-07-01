@@ -26,7 +26,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/board_list")
 	public String ctlBoardSelect(Model model){
-		List<BoardEntity> blist = boardService.svcBoardSelectList();
+		ArrayList<BoardEntity> blist = boardService.svcBoardSelectList();
 		model.addAttribute("KEY_BOARDLIST", blist);
 		return "/board/board_list";
 	}
@@ -81,13 +81,13 @@ public class BoardController {
 	
 	@RequestMapping(value="/reply_list")
 	@ResponseBody
-	public ResponseEntity<List<ReplyEntity>> ctlReplySelect(@RequestParam Long seq, Model model){
+	public ResponseEntity<ArrayList<ReplyEntity>> ctlReplySelect(@RequestParam Long seq, Model model){
 //		List<ReplyEntity> rlist = boardService.svcReplySelect(seq);
-		List<ReplyEntity> rlist = new ArrayList<ReplyEntity>();
+		ArrayList<ReplyEntity> rlist = new ArrayList<ReplyEntity>();
 		
 		model.addAttribute("KEY_REPLYLIST", rlist);
 		
-		return new ResponseEntity<List<ReplyEntity>> (rlist,HttpStatus.OK);
+		return new ResponseEntity<ArrayList<ReplyEntity>> (rlist,HttpStatus.OK);
 	}
 	
 //	@RequestMapping(value = "/board_search")

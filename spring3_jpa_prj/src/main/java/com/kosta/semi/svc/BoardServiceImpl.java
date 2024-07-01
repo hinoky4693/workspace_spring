@@ -30,8 +30,8 @@ public class BoardServiceImpl implements BoardService {
 	사용자정의	:	findByUserIdAndUserPw(String, Stirng);    
 	 */
 	
-	public List<BoardEntity> svcBoardSelectList(){
-		return boardRepository.findAll();
+	public ArrayList<BoardEntity> svcBoardSelectList(){
+		return (ArrayList)boardRepository.findAll();
 	}
 	public void svcBoardInsert(BoardEntity bvo) {
 		boardRepository.save(bvo);
