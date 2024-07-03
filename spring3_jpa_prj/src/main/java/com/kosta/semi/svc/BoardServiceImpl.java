@@ -3,8 +3,10 @@ package com.kosta.semi.svc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kosta.semi.entity.BoardEntity;
 import com.kosta.semi.entity.ReplyEntity;
@@ -46,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
 		boardRepository.delete(seq);
 	}
 	public void svcReplyDelete(Long rseq) {
-		boardRepository.delete(rseq);
+		replyRepository.delete(rseq);
 	}
 	public void svcReplyUpdate(ReplyEntity rvo) {
 		replyRepository.save(rvo);
@@ -54,11 +56,20 @@ public class BoardServiceImpl implements BoardService {
 	public BoardEntity svcBoardSelectOne(Long seq) {
 		return boardRepository.findOne(seq);
 	}
-//	public List<ReplyEntity> svcReplySelect(Long seq){
-//		return boardRepository.findAll();
-//	}
-//	public List<BoardEntity> svcSearchForRest(String searchStr){
-//		return boardRepository.searchForRest(searchStr);
-//	}
+	
+	//댓글목록 가져오기 : REST
+	@Transactional
+	@Override
+    public List<ReplyEntity> svcReplySelect(Long seq) {
+		//BoardEntity board = boardRepository.findById(seq).orElseThrow();
+		BoardEntity board = boardRepository.findOne(seq);
+	    Hibernate.initialize(board.getReplies());
+	    return new ArrayList<>(board.getReplies());
+    }
+	
+	@Transactional
+	public List<BoardEntity> svcSearchForRest(String searchStr){
+		return boardRepository.findByTitleLike(searchStr);
+	}
 	
 }

@@ -8,6 +8,8 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="multi"/>
+			<item value="mvc"/>
 			<item value="jpa"/>
 			<item value="jap"/>
 			<item value="save"/>
@@ -21,8 +23,6 @@
 			<item value="replyD"/>
 			<item value="boardUP"/>
 			<item value="genera"/>
-			<item value="generate"/>
-			<item value="boardIn"/>
 		</list>
 		<list key="replacehistory">
 		</list>

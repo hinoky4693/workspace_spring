@@ -30,7 +30,7 @@
 </tr>
 <tr>
       <th>작성일</th>
-      <td><input type="text" name="regdate" value="${KEY_BOARDVO.regdate}" readonly></td>
+      <td>${KEY_BOARDVO.regdate}</td>
 </tr>
 <tr>
       <th>제목</th>

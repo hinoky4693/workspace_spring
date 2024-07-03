@@ -1,6 +1,8 @@
 INDEX VERSION 1.131
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4090748778.index
 \spring3_jpa_prj\src\main\java
+C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1334532873.index
+\spring3_prj\src\main\java
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\905161210.index
 \spring3_prj\src\main\java
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1885359943.index

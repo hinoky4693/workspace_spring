@@ -3,7 +3,7 @@
 
 <mapper namespace="com.kosta.semi.mappers.BoardMapper">
 <!-- 여기 이름 무조건 mapper랑 맞춰줘야됨. 이거 경로임. -->
-	<resultMap id="boardRelyResultMap" type="com.kosta.semi.vo.BoardVO">
+	<resultMap id="boardReplyResultMap" type="com.kosta.semi.vo.BoardVO">
 		<id property="seq" column="seq"/>
 		<result property="title" column="title"/>
 		<result property="contents" column="contents"/>
@@ -19,6 +19,25 @@
 			<result property="regid" column="regid"/>
 			<result property="regdate" column="regdate"/>
 			<result property="seq" column="seq"/>
+		</collection>
+	</resultMap>
+	
+	<resultMap id="boardFileResultMap" type="com.kosta.semi.vo.BoardVO">
+		<id property="seq" column="seq"/>
+		<result property="title" column="title"/>
+		<result property="contents" column="contents"/>
+		<result property="regid" column="regid"/>
+		<result property="regdate" column="regdate"/>
+		<!-- <association property="files" javaType="com.kosta.semi.vo.FileVO" resultMap="fileMap_id"/> -->
+		<collection property="files" ofType="com.kosta.semi.vo.FileVO">
+			<id property="bseq" column="bseq"/>
+			<result property="oname" column="oname"/>
+			<result property="sname" column="sname"/>
+			<result property="fsize" column="fsize"/>
+			<result property="fpath" column="fpath"/>
+			<result property="seq" column="seq"/>
+			<result property="regid" column="regid"/>
+			<result property="regdate" column="regdate"/>
 		</collection>
 	</resultMap>
 
@@ -37,15 +56,35 @@
 		<result property="regdate" column="regdate"/>
 		<result property="seq" column="seq"/>
 	</resultMap>
+	
+	<resultMap id="fileMap_id" type="com.kosta.semi.vo.FileVO">
+		<id property="bseq" column="bseq"/>
+		<result property="oname" column="oname"/>
+		<result property="sname" column="sname"/>
+		<result property="fsize" column="fsize"/>
+		<result property="fpath" column="fpath"/>
+		<result property="seq" column="seq"/>
+		<result property="regid" column="regid"/>
+		<result property="regdate" column="regdate"/>
+	</resultMap>
 
 	<select id="boardSelectList" resultMap="boardMap_id">
 		select *
 		from board
 	</select>
-	
+
 	<insert id="boardInsert" parameterType="com.kosta.semi.vo.BoardVO">
-		insert into board (seq, title, contents, regid, regdate)
+		<selectKey keyProperty="seq" resultType="int" order="AFTER">
+			SELECT board_seq.currval FROM dual
+		</selectKey>
+		insert into board
 		values (board_seq.nextval, #{title}, #{contents}, '홍길동', sysdate)
+	</insert>
+
+	
+	<insert id="fileInsert" parameterType="com.kosta.semi.vo.FileVO">
+		insert into board_file
+		values (board_file_seq.nextval, #{oname}, #{sname}, #{fsize}, #{fpath}, #{seq}, '홍길동', sysdate)
 	</insert>
 	
 	<insert id="replyInsert" parameterType="com.kosta.semi.vo.ReplyVO">
@@ -75,10 +114,11 @@
 		where rseq =#{rseq}
 	</update>
 	
-	<select id="boardSelectOne" parameterType="int" resultMap="boardMap_id">
-		select *
-		from board 
-		where seq=#{seq}
+	<select id="boardSelectOne" parameterType="int" resultMap="boardFileResultMap">
+		select b.seq, b.title, b.contents, b.regid, b.regdate, f.bseq, f.oname, f.sname, f.fsize, f.fpath
+		from board b, board_file f
+		where b.seq = f.seq(+)
+		and b.seq = #{seq}
 	</select>
 	
 	<select id="replySelect" parameterType="int" resultMap="replyMap_id">

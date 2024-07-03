@@ -16,6 +16,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -40,7 +42,8 @@ public class ReplyEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="seq", referencedColumnName="seq")
+	@JsonIgnore
 	private BoardEntity board;
 	
-	
+
 }

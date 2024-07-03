@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.kosta.semi.vo.BoardVO;
+import com.kosta.semi.vo.FileVO;
 import com.kosta.semi.vo.ReplyVO;
 
 @Repository
@@ -13,6 +14,7 @@ import com.kosta.semi.vo.ReplyVO;
 public interface BoardMapper {
 	public ArrayList<BoardVO> boardSelectList();
 	public int boardInsert(BoardVO bvo);
+	public int fileInsert(FileVO fvo);
 	public int replyInsert(ReplyVO rvo);
 	public int boardUpdate(BoardVO bvo);
 	public int boardDelete(int seq);

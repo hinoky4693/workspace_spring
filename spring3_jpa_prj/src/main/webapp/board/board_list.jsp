@@ -50,6 +50,7 @@
 						method      : "POST",
 				        url         : "${pageContext.request.contextPath}/board_search",
 				        data 		: "search_str="+$("#search_str").val(),
+				        dataType	: 'json',
 				  		error 	    : function(myval){ console.log("에러:" + myval);   },
 				  		success     : function(myval){
 														console.log(myval);

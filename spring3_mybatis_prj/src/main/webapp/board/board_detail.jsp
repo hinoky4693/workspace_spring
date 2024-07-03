@@ -41,6 +41,18 @@
       <td><textarea name="contents" cols="80" rows="6">${KEY_BOARDVO.contents}</textarea></td>
 </tr>
 <tr>
+      <th>첨부파일</th>
+      <td>
+      	<c:choose>
+      		<c:when test="${not empty KEY_BOARDVO.files[0].oname}">
+			 	<c:forEach items="${KEY_BOARDVO.files}" var="fvo">
+		 			${fvo.oname}(${fvo.fsize} Byte)<br>
+				</c:forEach>
+      		</c:when>
+			<c:otherwise>첨부파일 없음!!</c:otherwise>
+		</c:choose>
+      </td>
+<tr>
 	<td colspan=2 align="center">
 		<input type="button" id="uptButton" value="수정">
 		<input type="button" id="delButton" value="삭제">

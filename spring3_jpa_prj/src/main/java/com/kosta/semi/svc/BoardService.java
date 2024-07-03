@@ -18,6 +18,6 @@ public interface BoardService {
 	public void svcReplyDelete(Long rseq);
 	public void svcReplyUpdate(ReplyEntity rvo);
 	public BoardEntity svcBoardSelectOne(Long seq);
-//	public List<ReplyEntity> svcReplySelect(Long seq);
-//	public List<BoardEntity> svcSearchForRest(String searchStr);
+	public List<ReplyEntity> svcReplySelect(Long seq);
+	public List<BoardEntity> svcSearchForRest(String searchStr);
 }

@@ -10,9 +10,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/board_insert" method ="post">
+<form action="/board_insert" method ="post" enctype="multipart/form-data">
 제목 : <input type="text" name="title"><br>
 내용 : <textarea name="contents"></textarea><br>
+첨부파일 : <input type="file" name="ufiles" multiple="multiple"><br>
 <input type="submit" value="글쓰기">
 </form>
 

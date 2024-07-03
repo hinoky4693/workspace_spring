@@ -40,8 +40,12 @@ public class BoardController {
 	
 	@RequestMapping(value="/reply_insert")
 	@ResponseBody
-	public String ctlReplyInsert(@ModelAttribute ReplyEntity rvo) {
+	public String ctlReplyInsert(@ModelAttribute ReplyEntity rvo, @RequestParam("seq") Long seq) {
+		BoardEntity board = new BoardEntity();
+		board.setSeq(seq);
+		rvo.setBoard(board);
 		boardService.svcReplyInsert(rvo);
+		
 
 		return null;
 	}
@@ -49,7 +53,7 @@ public class BoardController {
 	@RequestMapping(value="/board_update")
 	public String ctlBoardUpdate(@ModelAttribute BoardEntity bvo) {
 		boardService.svcBoardUpdate(bvo);
-		return "redirect:/board_list";
+		return "redirect:/board_detail?seq="+bvo.getSeq();
 	}
 	
 	@RequestMapping(value="/board_delete")
@@ -81,24 +85,24 @@ public class BoardController {
 	
 	@RequestMapping(value="/reply_list")
 	@ResponseBody
-	public ResponseEntity<ArrayList<ReplyEntity>> ctlReplySelect(@RequestParam Long seq, Model model){
-//		List<ReplyEntity> rlist = boardService.svcReplySelect(seq);
-		ArrayList<ReplyEntity> rlist = new ArrayList<ReplyEntity>();
+	public ResponseEntity<ArrayList<ReplyEntity>> ctlReplySelect(@RequestParam("seq") Long seq, Model model){
+		
+		//Rest 처리를 위해 Hibernate.initialize() 초기화 강제 수행(서비스 impl 함수 필히 살펴볼 것!!)
+		ArrayList<ReplyEntity> rlist = (ArrayList)boardService.svcReplySelect(seq);
 		
 		model.addAttribute("KEY_REPLYLIST", rlist);
 		
 		return new ResponseEntity<ArrayList<ReplyEntity>> (rlist,HttpStatus.OK);
 	}
 	
-//	@RequestMapping(value = "/board_search")
-//	@ResponseBody
-//	public ResponseEntity<ArrayList<BoardEntity>> ctlSearchForRest(@RequestParam("search_str") String searchStr) {
-//		searchStr = "%"+searchStr+"%";
-//		System.out.println(searchStr);
-//		ArrayList<BoardEntity> list = boardService.svcSearchForRest(searchStr);
-//			
-//		return new ResponseEntity<ArrayList<BoardEntity>> (list, HttpStatus.OK);
-//	}
+	@RequestMapping(value = "/board_search")
+	@ResponseBody
+	public ResponseEntity<ArrayList<BoardEntity>> ctlSearchForRest(@RequestParam("search_str") String searchStr) {
+		searchStr = "%"+searchStr+"%";
+		System.out.println(searchStr);
+		ArrayList<BoardEntity> list = (ArrayList)boardService.svcSearchForRest(searchStr);
+		return new ResponseEntity<ArrayList<BoardEntity>> (list, HttpStatus.OK);
+	}
 	
 	
 }

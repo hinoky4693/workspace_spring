@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+
+
 import lombok.Data;
 
 @Component
@@ -14,5 +16,6 @@ public class BoardVO {
 	private String contents;
 	private String regid;
 	private String regdate;
-	List<ReplyVO> replies;
+	private List<ReplyVO> replies;
+	private List<FileVO> files;
 }

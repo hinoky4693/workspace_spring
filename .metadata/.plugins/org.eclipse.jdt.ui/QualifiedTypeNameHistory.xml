@@ -8,13 +8,11 @@
     <fullyQualifiedTypeName name="com.lec04.di.board.BoardService"/>
     <fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
     <fullyQualifiedTypeName name="com.lec09.orm.mybatis.mapper.UserMapper"/>
-    <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
     <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="com.kosta.semi.UserVO"/>
     <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
     <fullyQualifiedTypeName name="org.slf4j.Logger"/>
     <fullyQualifiedTypeName name="com.kosta.semi.vo.UserVO"/>
-    <fullyQualifiedTypeName name="lombok.Data"/>
     <fullyQualifiedTypeName name="com.kosta.semi.vo.BoardVO"/>
     <fullyQualifiedTypeName name="com.kosta.semi.vo.ReplyVO"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
@@ -37,7 +35,6 @@
     <fullyQualifiedTypeName name="org.hibernate.Session"/>
     <fullyQualifiedTypeName name="org.hibernate.Transaction"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ModelAttribute"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="com.kosta.semi.repository.UserRepository"/>
     <fullyQualifiedTypeName name="com.kosta.semi.svc.UserService"/>
@@ -49,4 +46,14 @@
     <fullyQualifiedTypeName name="com.kosta.semi.repository.ReplyRepository"/>
     <fullyQualifiedTypeName name="com.kosta.semi.entity.BoardEntity"/>
     <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
+    <fullyQualifiedTypeName name="org.hibernate.Hibernate"/>
+    <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
+    <fullyQualifiedTypeName name="lombok.Data"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.util.UUID"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
+    <fullyQualifiedTypeName name="com.kosta.semi.vo.FileVO"/>
 </qualifiedTypeNameHistroy>

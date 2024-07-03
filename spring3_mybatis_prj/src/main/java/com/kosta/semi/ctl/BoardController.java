@@ -1,6 +1,10 @@
 package com.kosta.semi.ctl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kosta.semi.svc.BoardService;
 import com.kosta.semi.vo.BoardVO;
+import com.kosta.semi.vo.FileVO;
 import com.kosta.semi.vo.ReplyVO;
 
 @Controller
@@ -31,9 +37,35 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board_insert")
-	public String ctlBoardInsert(@ModelAttribute BoardVO bvo) {
-		boardService.svcBoardInsert(bvo);
-		
+	public String ctlBoardInsert(@RequestParam("ufiles") List<MultipartFile> files, @ModelAttribute BoardVO bvo) {
+		ArrayList<FileVO> flist = new ArrayList<FileVO>();
+		System.out.println(files.toString()+"======================================");
+			if(files.isEmpty() == true) {
+				for(MultipartFile file : files) {
+					FileVO fvo = new FileVO();
+					String uploadFolder = "C:\\KOSTA\\S3917_J11\\workspace_sts3\\uploads";
+					String uniqueName	= UUID.randomUUID().toString().split("-")[0];
+					String fileRealName = file.getOriginalFilename();
+					String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+					String filePath = uploadFolder + "\\" + uniqueName + fileExtension;
+
+					fvo.setOname(file.getOriginalFilename());
+					fvo.setFsize(file.getSize());
+					fvo.setSname(uniqueName);
+					fvo.setFpath(filePath);
+					System.out.println(fvo.toString());
+
+					try {
+						file.transferTo(new File(filePath));
+						flist.add(fvo);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		boardService.svcBoardInsert(bvo, flist);
 		return "redirect:/board_list";
 	}
 	
