@@ -1,4 +1,6 @@
 INDEX VERSION 1.131
+C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3985849949.index
+\spring3_prj\src\main\java
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4090748778.index
 \spring3_jpa_prj\src\main\java
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1334532873.index
@@ -13,10 +15,14 @@ C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\js
 \spring3_prj\src\main\java
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2573294450.index
 \spring3_jpa_prj\src\main\java
+C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\340626703.index
+\spring3_prj\src\main\java
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2261881096.index
 \spring3_mybatis_prj\src\main\java
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1075058780.index
 \spring3_jpa_prj\src\main\java
+C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2622939309.index
+\spring3_prj\src\main\java
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4238650592.index
 \spring3_prj\src\main\java
 C:\KOSTA\S3917_J11\workspace_sts3\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2410787128.index

@@ -8,6 +8,9 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="auth"/>
+			<item value="oauth"/>
+			<item value="spring"/>
 			<item value="multi"/>
 			<item value="mvc"/>
 			<item value="jpa"/>
@@ -20,9 +23,6 @@
 			<item value="search"/>
 			<item value="gson"/>
 			<item value="jackson"/>
-			<item value="replyD"/>
-			<item value="boardUP"/>
-			<item value="genera"/>
 		</list>
 		<list key="replacehistory">
 		</list>
